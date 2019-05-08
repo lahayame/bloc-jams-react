@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
-
 class Album extends Component {
   constructor(props) {
     super(props);
@@ -14,9 +13,7 @@ class Album extends Component {
     };
   }
 
-  getPlayButton(index) {
-    return index + 1;
-  }
+
 
   render() {
     return (
@@ -41,7 +38,7 @@ class Album extends Component {
               this.state.album.songs.map( (song, index) => {
                 return (
                   <tr key={index}>
-                  <td>{this.getPlayButton(index)}</td>
+                  <td>{index + 1}</td>
                   <td>{song.title}</td>
                   <td>{song.duration}</td>
                   </tr>
