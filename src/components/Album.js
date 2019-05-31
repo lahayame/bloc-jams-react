@@ -18,7 +18,8 @@ class Album extends Component {
       currentTime: 0,
       duration: album.songs[0].duration,
       isPlaying: false,
-      isHovering: false
+
+      isHovered: false
     };
 
     this.audioElement = document.createElement('audio');
@@ -93,6 +94,23 @@ componentWillUnmount() {
      this.setState({ currentTime: newTime });
    }
 
+   handleVolumeChange(e) {
+     const newVolume = e.target.value;
+     this.audioElement.volume = newVolume;
+     this.setState({ volume: newVolume });
+
+   }
+
+   handleVolumeUpClick(e) {
+     if (this.state.volume < 1) {
+       const newVolume = this.state.volume + 0.1;
+       this.audioElement.volume = Math.min(newVolume, 1);
+       this.setState({ volume: newVolume });
+     } else this.setState({ volume: 1});
+   }
+
+
+
 
   handleMouseEnter(song) {
     this.setState( {isHovered : song} );
@@ -110,6 +128,14 @@ componentWillUnmount() {
       return <span className="icon ion-md-play"></span>;
     }
     else return <span>{index+1}</span>
+  }
+
+  formatTime(time) {
+    return time
+      ? `${Math.floor(time / 60)}:${Number((time % 60) / 100)
+          .toFixed(2)
+          .substr(2,3)}`
+      : "-:--";
   }
   render() {
     return (
@@ -152,6 +178,8 @@ componentWillUnmount() {
            handlePrevClick={() => this.handlePrevClick()}
            handleNextClick={() => this.handleNextClick()}
            handleTimeChange={(e) => this.handleTimeChange(e)}
+           formatTime={e => this.formatTime(e)}
+
 
          />
     </section>
