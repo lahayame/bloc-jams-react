@@ -18,12 +18,14 @@ class Album extends Component {
       currentTime: 0,
       duration: album.songs[0].duration,
       isPlaying: false,
+      volume: 0.5,
 
       isHovered: false
     };
 
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
+    this.audioElement.volume = this.state.volume;
   }
 
   componentDidMount() {
@@ -109,6 +111,13 @@ componentWillUnmount() {
      } else this.setState({ volume: 1});
    }
 
+   hsndleVolumeDownClick(e) {
+     if(this.state.volume > 0) {
+       const newVolume = this.state.volume - 0.1;
+       this.audioElement.volume = Math.max(0, newVolume)
+       this.setState({ volume: 0});
+     }
+   }
 
 
 
@@ -179,6 +188,8 @@ componentWillUnmount() {
            handleNextClick={() => this.handleNextClick()}
            handleTimeChange={(e) => this.handleTimeChange(e)}
            formatTime={e => this.formatTime(e)}
+           handleVolumeUpClick={e => this.handleVolumeUpClick(e)}
+           handleVolumeDownClick={e => this.handleVolumeDownClick(e)}
 
 
          />
