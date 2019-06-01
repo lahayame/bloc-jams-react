@@ -111,13 +111,14 @@ componentWillUnmount() {
      } else this.setState({ volume: 1});
    }
 
-   hsndleVolumeDownClick(e) {
+   handleVolumeDownClick(e) {
      if(this.state.volume > 0) {
        const newVolume = this.state.volume - 0.1;
        this.audioElement.volume = Math.max(0, newVolume)
-       this.setState({ volume: 0});
-     }
-   }
+       this.setState({ volume: newVolume });
+    } else  this.setState({ volume: 0});
+
+  }
 
 
 
@@ -183,10 +184,12 @@ componentWillUnmount() {
            currentSong={this.state.currentSong}
            currentTime={this.audioElement.currentTime}
            duration={this.audioElement.duration}
+           volume={this.state.volume}
            handleSongClick={() => this.handleSongClick(this.state.currentSong)}
            handlePrevClick={() => this.handlePrevClick()}
            handleNextClick={() => this.handleNextClick()}
            handleTimeChange={(e) => this.handleTimeChange(e)}
+           handleVolumeChange={e => this.handleVolumeChange(e)}
            formatTime={e => this.formatTime(e)}
            handleVolumeUpClick={e => this.handleVolumeUpClick(e)}
            handleVolumeDownClick={e => this.handleVolumeDownClick(e)}
