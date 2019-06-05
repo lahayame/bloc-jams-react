@@ -131,13 +131,19 @@ componentWillUnmount() {
   }
 
   hoverIcon(song, index) {
+    if (!this.state.isPlaying && song === this.state.currentSong) {
+      return <span className="ion-play"></span>;
+    }
+
     if (this.state.isPlaying && song === this.state.currentSong) {
-      return <span className="icon ion-md-pause"></span>;
+      return <span className="ion-pause"></span>;
     }
-    else if (song === this.state.isHovered) {
-      return <span className="icon ion-md-play"></span>;
+
+    if (song === this.state.isHovered) {
+      return <span className="ion-play"></span>;
     }
-    else return <span>{index+1}</span>
+
+    return <span>{index+1}</span>
   }
 
   formatTime(time) {
